@@ -1,7 +1,13 @@
 import React from 'react';
 
+import { GetStartedForm } from '../../components/RegisterForm';
+
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.PureComponent {
+  nextStep = values => {
+    console.log(values);
+  };
+
   render() {
     return (
       <div className="ui container">
@@ -11,31 +17,7 @@ export default class HomePage extends React.PureComponent {
         >
           Register
         </h2>
-        <form className="ui form">
-          <div className="field">
-            <label>
-              First Name
-              <input type="text" name="first-name" placeholder="First Name" />
-            </label>
-          </div>
-          <div className="field">
-            <label>
-              Last Name
-              <input type="text" name="last-name" placeholder="Last Name" />
-            </label>
-          </div>
-          <div className="field">
-            <div className="ui checkbox">
-              <label>
-                <input type="checkbox" tabIndex="0" className="hidden" />I agree
-                to the Terms and Conditions
-              </label>
-            </div>
-          </div>
-          <button className="ui button" type="submit">
-            Submit
-          </button>
-        </form>
+        <GetStartedForm onSubmit={this.nextStep} />
       </div>
     );
   }

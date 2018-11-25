@@ -1,0 +1,1 @@
+export const CHANGE_AUTHENTICATE = 'app/AuthProvider/CHANGE_AUTHENTICATE';
