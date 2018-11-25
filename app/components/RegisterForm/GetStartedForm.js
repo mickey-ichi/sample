@@ -89,15 +89,15 @@ const GetStartedForm = props => (
           >
             <label htmlFor="email">
               Email *
-              <input
-                id="email"
-                type="text"
-                placeholder="Email"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
             </label>
+            <input
+              id="email"
+              type="text"
+              placeholder="Email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
           </div>
           <div
             className={

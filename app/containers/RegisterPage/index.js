@@ -1,9 +1,28 @@
 import React from 'react';
+import Steps, { Step } from 'rc-steps';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import { GetStartedForm } from '../../components/RegisterForm';
+import 'rc-steps/assets/index.css';
+import 'rc-steps/assets/iconfont.css';
+
+import {
+  GetStartedForm,
+  PrivacyTermsForm,
+  WelcomeForm,
+} from '../../components/RegisterForm';
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+
+const mapStateToProps = createStructuredSelector({});
 
 /* eslint-disable react/prefer-stateless-function */
-export default class HomePage extends React.PureComponent {
+@connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)
+class HomePage extends React.PureComponent {
   nextStep = values => {
     console.log(values);
   };
@@ -17,8 +36,17 @@ export default class HomePage extends React.PureComponent {
         >
           Register
         </h2>
+        <Steps labelPlacement="vertical" current={0}>
+          <Step title="Get started" />
+          <Step title="Information" />
+          <Step title="Finish" />
+        </Steps>
         <GetStartedForm onSubmit={this.nextStep} />
+        <WelcomeForm onSubmit={this.nextStep} />
+        <PrivacyTermsForm onSubmit={this.nextStep} />
       </div>
     );
   }
 }
+
+export default HomePage;
