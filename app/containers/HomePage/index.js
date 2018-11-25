@@ -10,16 +10,25 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import {
+  Link,
+} from "react-router-dom";
 
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.PureComponent {
   render() {
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <div className="ui container">
+        <div className="ui grid" style={{ paddingTop: 15 }}>
+          <div className="column">
+            <Link to="/register" className="teal ui button right floated">
+              <i className="key icon" />
+              Sign up
+            </Link>
+          </div>
+        </div>
+        <div className="ui divider" />
+      </div>
     );
   }
 }
