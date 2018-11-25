@@ -5,10 +5,10 @@
  */
 
 import { fromJS } from 'immutable';
-import { CHANGE_STEP, STEP_GET_STATED } from './constants';
+import { CHANGE_STEP, STEP_GET_STATED, STEP_INFORMATION } from './constants';
 
 export const initialState = fromJS({
-  step: STEP_GET_STATED,
+  step: STEP_INFORMATION,
 });
 
 function authProviderReducer(state = initialState, action) {

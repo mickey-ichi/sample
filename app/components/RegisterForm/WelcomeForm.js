@@ -3,11 +3,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
-import { Dropdown, Radio } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
 const languageTeachOptions = [
   { key: 'gb', value: 'gb', flag: 'gb', text: 'England' },
   { key: 'vn', value: 'fr', flag: 'vn', text: 'Vietnam' },
+];
+
+const timeZoneOptions = [
+  {
+    key: '1',
+    value: 'Asia/Bangkok',
+    text: '(GMT+07:00) Bangkok, Hanoi, Jakarta',
+  },
+  { key: '2', value: 'Asia/Tokyo', text: '(GMT+09:00) Osaka, Sapporo, Tokyo' },
+  {
+    key: '3',
+    value: 'US/Central',
+    text: '(GMT-06:00) Central Time (US & Canada)',
+  },
 ];
 
 const countryOptions = [
@@ -15,7 +29,22 @@ const countryOptions = [
   { key: 'ar', value: 'ar', flag: 'ar', text: 'Argentina' },
   { key: 'fr', value: 'fr', flag: 'fr', text: 'France' },
   { key: 'vn', value: 'fr', flag: 'vn', text: 'Vietnam' },
+  { key: 'gb', value: 'gb', flag: 'gb', text: 'England' },
   { key: 'it', value: 'it', flag: 'it', text: 'Italy' },
+];
+
+const birthYearOptions = [
+  { key: '1', value: '1990', text: '1990' },
+  { key: '2', value: '1991', text: '1991' },
+  { key: '3', value: '1992', text: '1992' },
+  { key: '4', value: '1993', text: '1993' },
+  { key: '5', value: '1994', text: '1994' },
+  { key: '6', value: '1995', text: '1995' },
+  { key: '7', value: '1996', text: '1996' },
+  { key: '8', value: '1997', text: '1997' },
+  { key: '9', value: '1998', text: '1998' },
+  { key: '10', value: '1999', text: '1999' },
+  { key: '11', value: '2000', text: '2000' },
 ];
 
 const initialValues = {
@@ -102,9 +131,7 @@ class WelcomeForm extends React.PureComponent {
                   fluid
                   search
                   selection
-                  options={[
-                    { key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
-                  ]}
+                  options={timeZoneOptions}
                 />
               </div>
               <div
@@ -118,9 +145,7 @@ class WelcomeForm extends React.PureComponent {
                   fluid
                   search
                   selection
-                  options={[
-                    { key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
-                  ]}
+                  options={birthYearOptions}
                 />
               </div>
               <button

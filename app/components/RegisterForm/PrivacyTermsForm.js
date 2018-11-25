@@ -26,8 +26,12 @@ const PrivacyTermsForm = props => (
     >
       Back Step
     </button>
-    <button onClick={() => props.onSubmit} className="ui teal button">
-      Next Step
+    <button
+      type="submit"
+      onClick={() => props.onSubmit}
+      className="ui teal button"
+    >
+      Submit
     </button>
   </div>
 );
