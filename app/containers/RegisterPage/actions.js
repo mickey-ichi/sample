@@ -13,8 +13,9 @@ export function registerUser(user) {
   };
 }
 
-export function changeStep() {
+export function changeStep(step) {
   return {
     type: CHANGE_STEP,
+    step,
   };
 }

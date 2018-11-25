@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types,prefer-destructuring */
 import React from 'react';
 import Steps, { Step } from 'rc-steps';
 import { connect } from 'react-redux';
@@ -16,16 +16,29 @@ import {
 } from '../../components/RegisterForm';
 import reducer from './reducer';
 import saga from './saga';
+import { changeStep } from './actions';
 import { makeStep } from './selectors';
+import { STEP_GET_STATED, STEP_INFORMATION, STEP_FINISH } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 class HomePage extends React.PureComponent {
   nextStepInformation = values => {
     console.log(values);
+    this.props.changeStep(STEP_INFORMATION);
   };
 
   nextStepFinish = values => {
     console.log(values);
+    this.props.changeStep(STEP_FINISH);
+  };
+
+  backStepStarted = () => {
+    console.log('back');
+    this.props.changeStep(STEP_GET_STATED);
+  };
+
+  backStepInformation = () => {
+    this.props.changeStep(STEP_INFORMATION);
   };
 
   submit = () => {};
@@ -46,9 +59,21 @@ class HomePage extends React.PureComponent {
           <Step title="Finish" />
         </Steps>
         <div style={{ marginTop: 30 }}>
-          {step === 0 && <GetStartedForm onSubmit={this.nextStepInformation} />}
-          {step === 1 && <WelcomeForm onSubmit={this.nextStepFinish} />}
-          {step === 2 && <PrivacyTermsForm onSubmit={this.submit} />}
+          {step === STEP_GET_STATED && (
+            <GetStartedForm onSubmit={this.nextStepInformation} />
+          )}
+          {step === STEP_INFORMATION && (
+            <WelcomeForm
+              onBackStep={this.backStepStarted}
+              onSubmit={this.nextStepFinish}
+            />
+          )}
+          {step === STEP_FINISH && (
+            <PrivacyTermsForm
+              onBackStep={this.backStepInformation}
+              onSubmit={this.submit}
+            />
+          )}
         </div>
       </div>
     );
@@ -56,7 +81,9 @@ class HomePage extends React.PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    changeStep: step => dispatch(changeStep(step)),
+  };
 }
 
 const mapStateToProps = createStructuredSelector({

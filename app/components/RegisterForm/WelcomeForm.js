@@ -31,102 +31,121 @@ const validate = values => {
   return errors;
 };
 
-const WelcomeForm = props => (
-  <Formik
-    initialValues={props.values || initialValues}
-    validate={validate}
-    onSubmit={props.onSubmit}
-  >
-    {props => {
-      /* eslint-disable react/prop-types */
-      const {
-        values,
-        touched,
-        errors,
-        handleSubmit,
-        setFieldValue,
-        isValid,
-      } = props;
+class WelcomeForm extends React.PureComponent {
+  onBackStep = () => {
+    this.props.onBackStep();
+  };
 
-      /* eslint-disable jsx-a11y/label-has-associated-control */
-      return (
-        <form className="ui form" onSubmit={handleSubmit}>
-          <div className="field">
-            <h3 className="ui header center aligned">Welcome Teacher</h3>
-          </div>
-          <div
-            className={
-              errors.firstName && touched.firstName ? 'field error' : 'field'
-            }
-          >
-            <label>Language teach</label>
-            <Dropdown
-              placeholder="Select language"
-              fluid
-              search
-              selection
-              options={languageTeachOptions}
-            />
-          </div>
-          <div
-            className={
-              errors.lastName && touched.lastName ? 'field error' : 'field'
-            }
-          >
-            <label>Home country *</label>
-            <Dropdown
-              placeholder="Select country"
-              fluid
-              search
-              selection
-              options={countryOptions}
-            />
-          </div>
-          <div
-            className={errors.email && touched.email ? 'field error' : 'field'}
-          >
-            <label>Timezone *</label>
-            <Dropdown
-              placeholder="Select timezone"
-              fluid
-              search
-              selection
-              options={[
-                { key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
-              ]}
-            />
-          </div>
-          <div
-            className={
-              errors.password && touched.password ? 'field error' : 'field'
-            }
-          >
-            <label>Birth year *</label>
-            <Dropdown
-              placeholder="Select timezone"
-              fluid
-              search
-              selection
-              options={[
-                { key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
-              ]}
-            />
-          </div>
-          <button
-            type="button"
-            className="ui basic button"
-            onClick={() => props.onBackStep}
-          >
-            Back Step
-          </button>
-          <button type="submit" disabled={!isValid} className="ui teal button">
-            Next Step
-          </button>
-        </form>
-      );
-    }}
-  </Formik>
-);
+  render() {
+    return (
+      <Formik
+        initialValues={this.props.values || initialValues}
+        validate={validate}
+        onSubmit={this.props.onSubmit}
+      >
+        {props => {
+          /* eslint-disable react/prop-types */
+          const {
+            values,
+            touched,
+            errors,
+            handleSubmit,
+            setFieldValue,
+            isValid,
+            onBackStep,
+          } = props;
+
+          /* eslint-disable jsx-a11y/label-has-associated-control */
+          return (
+            <form className="ui form" onSubmit={handleSubmit}>
+              <div className="field">
+                <h3 className="ui header center aligned">Welcome Teacher</h3>
+              </div>
+              <div
+                className={
+                  errors.firstName && touched.firstName
+                    ? 'field error'
+                    : 'field'
+                }
+              >
+                <label>Language teach</label>
+                <Dropdown
+                  placeholder="Select language"
+                  fluid
+                  search
+                  selection
+                  options={languageTeachOptions}
+                />
+              </div>
+              <div
+                className={
+                  errors.lastName && touched.lastName ? 'field error' : 'field'
+                }
+              >
+                <label>Home country *</label>
+                <Dropdown
+                  placeholder="Select country"
+                  fluid
+                  search
+                  selection
+                  options={countryOptions}
+                />
+              </div>
+              <div
+                className={
+                  errors.email && touched.email ? 'field error' : 'field'
+                }
+              >
+                <label>Timezone *</label>
+                <Dropdown
+                  placeholder="Select timezone"
+                  fluid
+                  search
+                  selection
+                  options={[
+                    { key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
+                  ]}
+                />
+              </div>
+              <div
+                className={
+                  errors.password && touched.password ? 'field error' : 'field'
+                }
+              >
+                <label>Birth year *</label>
+                <Dropdown
+                  placeholder="Select timezone"
+                  fluid
+                  search
+                  selection
+                  options={[
+                    { key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
+                  ]}
+                />
+              </div>
+              <button
+                type="button"
+                className="ui basic button"
+                onClick={() => {
+                  this.onBackStep();
+                }}
+              >
+                Back Step
+              </button>
+              <button
+                type="submit"
+                disabled={!isValid}
+                className="ui teal button"
+              >
+                Next Step
+              </button>
+            </form>
+          );
+        }}
+      </Formik>
+    );
+  }
+}
 
 WelcomeForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
