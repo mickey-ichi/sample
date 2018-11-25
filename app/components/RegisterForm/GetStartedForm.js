@@ -54,6 +54,9 @@ const GetStartedForm = props => (
       /* eslint-disable jsx-a11y/label-has-associated-control */
       return (
         <form className="ui form" onSubmit={handleSubmit}>
+          <div className="field">
+            <h3 className="ui header">Get started now</h3>
+          </div>
           <div
             className={
               errors.firstName && touched.firstName ? 'field error' : 'field'

@@ -9,7 +9,6 @@ import { CHANGE_STEP } from './constants';
 
 export const initialState = fromJS({
   step: 0,
-  profile: {},
 });
 
 function authProviderReducer(state = initialState, action) {

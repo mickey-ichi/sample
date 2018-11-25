@@ -52,7 +52,7 @@ const WelcomeForm = props => (
       return (
         <form className="ui form" onSubmit={handleSubmit}>
           <div className="field">
-            <h1 className="ui header center aligned">Welcome Teacher</h1>
+            <h3 className="ui header center aligned">Welcome Teacher</h3>
           </div>
           <div
             className={

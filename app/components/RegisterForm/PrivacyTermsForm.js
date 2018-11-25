@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const PrivacyTermsForm = props => (
   <div>
     <div className="field">
-      <h1 className="ui header center aligned">Privacy and Terms</h1>
+      <h3 className="ui header center aligned">Privacy and Terms</h3>
     </div>
     <p>
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
