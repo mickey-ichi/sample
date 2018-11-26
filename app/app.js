@@ -13,6 +13,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
+import jwtDecode from 'jwt-decode';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 import 'semantic-ui-css/semantic.css';
@@ -35,13 +36,19 @@ import configureStore from './configureStore';
 // Import i18n messages
 import { translationMessages } from './i18n';
 
-const auth = JSON.parse(localStorage.getItem('auth'));
+const token = localStorage.getItem('token');
 
 // Create redux store with history
 const initialState = {};
 const store = configureStore(initialState, history);
-if (auth) {
-  store.dispatch(changeAuthenticate(auth));
+if (token) {
+  const profile = jwtDecode(token);
+  store.dispatch(
+    changeAuthenticate({
+      isAuthenticated: !!token,
+      profile,
+    }),
+  );
 }
 const MOUNT_NODE = document.getElementById('app');
 

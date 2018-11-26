@@ -9,12 +9,9 @@ import {
 
 const api = {
   register(user) {
-    console.log('hihi', user);
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve({ data: 'success' });
-      }, 1000);
-    });
+    return axios
+      .post('https://example-server-vxoluyuqoh.now.sh/users', user)
+      .then(response => response.data);
   },
 };
 
@@ -32,10 +29,7 @@ export function* registerUser(prams) {
         profile: user,
       }),
     );
-    localStorage.setItem(
-      'auth',
-      JSON.stringify({ isAuthenticated: true, profile: user }),
-    );
+    localStorage.setItem('token', response.token);
     resolve(response);
   } catch (error) {
     yield put({ type: REGISTER_USER_ERROR, error });
