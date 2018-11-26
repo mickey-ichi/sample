@@ -89,7 +89,7 @@ class WelcomeForm extends React.PureComponent {
           return (
             <form className="ui form" onSubmit={handleSubmit}>
               <div className="field">
-                <h3 className="ui header">Welcome Teacher</h3>
+                <h3 className="ui header">Welcome {this.props.type}</h3>
               </div>
               <div className="field">
                 <label>Language teach *</label>
@@ -174,6 +174,7 @@ class WelcomeForm extends React.PureComponent {
 WelcomeForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   values: PropTypes.object.isRequired,
+  type: PropTypes.string,
   onBackStep: PropTypes.func,
 };
 

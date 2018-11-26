@@ -9,7 +9,7 @@ import {
 
 const api = {
   register(user) {
-    console.log(user);
+    console.log('hihi', user);
     return new Promise(resolve => {
       setTimeout(() => {
         resolve({ data: 'success' });

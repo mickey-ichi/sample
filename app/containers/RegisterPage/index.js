@@ -83,6 +83,7 @@ class HomePage extends React.PureComponent {
           )}
           {step === STEP_INFORMATION && (
             <WelcomeForm
+              type={user.accountType}
               values={{
                 language: user.language,
                 country: user.country,
