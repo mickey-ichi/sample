@@ -10,7 +10,7 @@ import {
 const api = {
   register(user) {
     return axios
-      .post('https://example-server-vxoluyuqoh.now.sh/users', user)
+      .post(' https://example-server-jmwtliayoy.now.sh/users', user)
       .then(response => response.data);
   },
 };

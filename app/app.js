@@ -42,11 +42,11 @@ const token = localStorage.getItem('token');
 const initialState = {};
 const store = configureStore(initialState, history);
 if (token) {
-  const profile = jwtDecode(token);
+  const raw = jwtDecode(token);
   store.dispatch(
     changeAuthenticate({
       isAuthenticated: !!token,
-      profile,
+      profile: raw.data,
     }),
   );
 }
