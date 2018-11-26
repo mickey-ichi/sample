@@ -22,6 +22,7 @@ import App from 'containers/App';
 
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
+import { changeAuthenticate } from 'containers/AuthProvider/actions';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -34,9 +35,14 @@ import configureStore from './configureStore';
 // Import i18n messages
 import { translationMessages } from './i18n';
 
+const auth = JSON.parse(localStorage.getItem('auth'));
+
 // Create redux store with history
 const initialState = {};
 const store = configureStore(initialState, history);
+if (auth) {
+  store.dispatch(changeAuthenticate(auth));
+}
 const MOUNT_NODE = document.getElementById('app');
 
 const render = messages => {

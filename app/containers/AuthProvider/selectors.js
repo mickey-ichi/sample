@@ -13,6 +13,6 @@ const makeIsAuthenticated = () =>
   createSelector(selectAuth, authState => authState.get('isAuthenticated'));
 
 const makeProfile = () =>
-  createSelector(selectAuth, authState => authState.get('profile'));
+  createSelector(selectAuth, authState => authState.get('profile').toJS());
 
 export { makeIsAuthenticated, makeProfile };

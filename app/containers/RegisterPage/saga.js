@@ -26,12 +26,15 @@ export function* registerUser(prams) {
   try {
     const response = yield call(api.register, user);
     yield put({ type: REGISTER_USER_SUCCESS, response });
-    localStorage.setItem('auth', JSON.stringify(user));
     yield put(
       changeAuthenticate({
         isAuthenticated: true,
         profile: user,
       }),
+    );
+    localStorage.setItem(
+      'auth',
+      JSON.stringify({ isAuthenticated: true, profile: user }),
     );
     resolve(response);
   } catch (error) {

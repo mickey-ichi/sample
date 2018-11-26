@@ -17,9 +17,10 @@ function authProviderReducer(state = initialState, action) {
     case CHANGE_AUTHENTICATE:
       return state
         .set('isAuthenticated', action.auth.isAuthenticated)
-        .set('profile', action.auth.profile);
+        .set('profile', fromJS(action.auth.profile));
     case LOGOUT:
-      return state.set('isAuthenticated', false).set('profile', {});
+      localStorage.removeItem('auth');
+      return state.set('isAuthenticated', false).set('profile', fromJS({}));
     default:
       return state;
   }
