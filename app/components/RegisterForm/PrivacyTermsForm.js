@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 const PrivacyTermsForm = props => (
   <div>
     <div className="field">
-      <h3 className="ui header center aligned">Privacy and Terms</h3>
+      <h3 className="ui header">Privacy and Terms</h3>
     </div>
-    <p>
+    <p style={{ marginTop: 15 }}>
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       Lorem Ipsum has been the industry's standard dummy text ever since the
       1500s, when an unknown printer took a galley of type and scrambled it to
@@ -19,20 +19,22 @@ const PrivacyTermsForm = props => (
       publishing software like Aldus PageMaker including versions of Lorem
       Ipsum.
     </p>
-    <button
-      type="button"
-      className="ui basic button"
-      onClick={() => props.onBackStep}
-    >
-      Back Step
-    </button>
-    <button
-      type="submit"
-      onClick={() => props.onSubmit}
-      className="ui teal button"
-    >
-      Submit
-    </button>
+    <div style={{ marginTop: 15 }}>
+      <button
+        type="button"
+        className="ui basic button"
+        onClick={() => props.onBackStep()}
+      >
+        Back Step
+      </button>
+      <button
+        type="button"
+        onClick={() => props.onSubmit()}
+        className="ui teal button"
+      >
+        Submit
+      </button>
+    </div>
   </div>
 );
 PrivacyTermsForm.propTypes = {

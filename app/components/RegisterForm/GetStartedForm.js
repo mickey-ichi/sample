@@ -5,14 +5,6 @@ import PropTypes from 'prop-types';
 import { Radio } from 'semantic-ui-react';
 import { Formik } from 'formik';
 
-const initialValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  accountType: 'teacher',
-};
-
 const validate = values => {
   const errors = {};
   if (!values.firstName) {
@@ -32,9 +24,10 @@ const validate = values => {
   return errors;
 };
 
+/* eslint-disable prettier/prettier */
 const GetStartedForm = props => (
   <Formik
-    initialValues={initialValues}
+    initialValues={props.values}
     validate={validate}
     onSubmit={props.onSubmit}
   >
@@ -48,7 +41,6 @@ const GetStartedForm = props => (
         handleBlur,
         handleSubmit,
         setFieldValue,
-        isValid,
       } = props;
 
       /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -137,7 +129,7 @@ const GetStartedForm = props => (
               />
             </div>
           </div>
-          <button type="submit" disabled={!isValid} className="ui teal button">
+          <button type="submit" className="ui teal button">
             Next Step
           </button>
         </form>
@@ -147,6 +139,7 @@ const GetStartedForm = props => (
 );
 
 GetStartedForm.propTypes = {
+  values: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

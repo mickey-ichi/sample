@@ -7,9 +7,14 @@ import { initialState } from './reducer';
 const selectRegister = state => state.get('register', initialState);
 
 /**
- * Select the auth
+ * Select the User
  */
 const makeStep = () =>
   createSelector(selectRegister, registerState => registerState.get('step'));
 
-export { selectRegister, makeStep };
+const makeUser = () =>
+  createSelector(selectRegister, registerState =>
+    registerState.get('user').toJS(),
+  );
+
+export { selectRegister, makeStep, makeUser };

@@ -47,16 +47,20 @@ const birthYearOptions = [
   { key: '11', value: '2000', text: '2000' },
 ];
 
-const initialValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  accountType: 'teacher',
-};
-
 const validate = values => {
   const errors = {};
+  if (!values.language) {
+    errors.language = 'Required';
+  }
+  if (!values.country) {
+    errors.country = 'Required';
+  }
+  if (!values.timezone) {
+    errors.timezone = 'Required';
+  }
+  if (!values.birthYear) {
+    errors.birthYear = 'Required';
+  }
   return errors;
 };
 
@@ -68,84 +72,83 @@ class WelcomeForm extends React.PureComponent {
   render() {
     return (
       <Formik
-        initialValues={this.props.values || initialValues}
+        initialValues={this.props.values}
         validate={validate}
         onSubmit={this.props.onSubmit}
       >
         {props => {
-          /* eslint-disable react/prop-types */
           const {
             values,
             touched,
             errors,
             handleSubmit,
             setFieldValue,
-            isValid,
-            onBackStep,
           } = props;
 
           /* eslint-disable jsx-a11y/label-has-associated-control */
           return (
             <form className="ui form" onSubmit={handleSubmit}>
               <div className="field">
-                <h3 className="ui header center aligned">Welcome Teacher</h3>
+                <h3 className="ui header">Welcome Teacher</h3>
               </div>
-              <div
-                className={
-                  errors.firstName && touched.firstName
-                    ? 'field error'
-                    : 'field'
-                }
-              >
-                <label>Language teach</label>
+              <div className="field">
+                <label>Language teach *</label>
                 <Dropdown
+                  defaultValue={values.language}
+                  className={errors.language && touched.language && 'error'}
                   placeholder="Select language"
                   fluid
                   search
                   selection
                   options={languageTeachOptions}
+                  onChange={(event, { value }) => {
+                    setFieldValue('language', value);
+                  }}
                 />
               </div>
-              <div
-                className={
-                  errors.lastName && touched.lastName ? 'field error' : 'field'
-                }
-              >
+              <div className="field">
                 <label>Home country *</label>
                 <Dropdown
+                  defaultValue={values.country}
+                  className={errors.country && touched.country && 'error'}
                   placeholder="Select country"
                   fluid
                   search
                   selection
                   options={countryOptions}
+                  onChange={(event, { value }) => {
+                    setFieldValue('country', value);
+                  }}
                 />
               </div>
-              <div
-                className={
-                  errors.email && touched.email ? 'field error' : 'field'
-                }
-              >
+              <div className="field">
                 <label>Timezone *</label>
                 <Dropdown
+                  defaultValue={values.timezone}
+                  className={errors.timezone && touched.timezone && 'error'}
                   placeholder="Select timezone"
                   fluid
                   search
                   selection
                   options={timeZoneOptions}
+                  onChange={(event, { value }) => {
+                    setFieldValue('timezone', value);
+                  }}
                 />
               </div>
-              <div
-                className={
-                  errors.password && touched.password ? 'field error' : 'field'
-                }
-              >
+              <div className="field">
                 <label>Birth year *</label>
                 <Dropdown
-                  placeholder="Select timezone"
+                  defaultValue={values.birthYear}
+                  className={errors.birthYear && touched.birthYear && 'error'}
+                  placeholder="Select birth year"
                   fluid
                   search
                   selection
                   options={birthYearOptions}
+                  onChange={(event, { value }) => {
+                    setFieldValue('birthYear', value);
+                  }}
                 />
               </div>
               <button
@@ -157,11 +160,7 @@ class WelcomeForm extends React.PureComponent {
               >
                 Back Step
               </button>
-              <button
-                type="submit"
-                disabled={!isValid}
-                className="ui teal button"
-              >
+              <button type="submit" className="ui teal button">
                 Next Step
               </button>
             </form>
@@ -174,7 +173,7 @@ class WelcomeForm extends React.PureComponent {
 
 WelcomeForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  values: PropTypes.object,
+  values: PropTypes.object.isRequired,
   onBackStep: PropTypes.func,
 };
 

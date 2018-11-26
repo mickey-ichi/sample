@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types,prefer-destructuring */
+/* eslint-disable react/prop-types,prefer-destructuring,react/no-unused-state */
 import React from 'react';
 import Steps, { Step } from 'rc-steps';
 import { connect } from 'react-redux';
@@ -16,24 +16,27 @@ import {
 } from '../../components/RegisterForm';
 import reducer from './reducer';
 import saga from './saga';
-import { changeStep } from './actions';
-import { makeStep } from './selectors';
+import { changeStep, updateUser, registerUser } from './actions';
+import { makeStep, makeUser } from './selectors';
 import { STEP_GET_STATED, STEP_INFORMATION, STEP_FINISH } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 class HomePage extends React.PureComponent {
   nextStepInformation = values => {
-    console.log(values);
+    const user = { ...this.props.user };
+    Object.assign(user, values);
+    this.props.updateUser(user);
     this.props.changeStep(STEP_INFORMATION);
   };
 
   nextStepFinish = values => {
-    console.log(values);
+    const user = { ...this.props.user };
+    Object.assign(user, values);
+    this.props.updateUser(user);
     this.props.changeStep(STEP_FINISH);
   };
 
   backStepStarted = () => {
-    console.log('back');
     this.props.changeStep(STEP_GET_STATED);
   };
 
@@ -41,10 +44,14 @@ class HomePage extends React.PureComponent {
     this.props.changeStep(STEP_INFORMATION);
   };
 
-  submit = () => {};
+  submit = () => {
+    console.log(this.props.user);
+    this.props.registerUser(this.props.user);
+  };
 
   render() {
-    const { step } = this.props;
+    const { step, user } = this.props;
+    console.log('test', user);
     return (
       <div className="ui container">
         <h2
@@ -60,10 +67,25 @@ class HomePage extends React.PureComponent {
         </Steps>
         <div style={{ marginTop: 30 }}>
           {step === STEP_GET_STATED && (
-            <GetStartedForm onSubmit={this.nextStepInformation} />
+            <GetStartedForm
+              values={{
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                password: user.password,
+                accountType: user.accountType,
+              }}
+              onSubmit={this.nextStepInformation}
+            />
           )}
           {step === STEP_INFORMATION && (
             <WelcomeForm
+              values={{
+                language: user.language,
+                country: user.country,
+                timezone: user.timezone,
+                birthYear: user.birthYear,
+              }}
               onBackStep={this.backStepStarted}
               onSubmit={this.nextStepFinish}
             />
@@ -83,11 +105,14 @@ class HomePage extends React.PureComponent {
 function mapDispatchToProps(dispatch) {
   return {
     changeStep: step => dispatch(changeStep(step)),
+    updateUser: user => dispatch(updateUser(user)),
+    registerUser: user => dispatch(registerUser(user)),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
   step: makeStep(),
+  user: makeUser(),
 });
 
 const withConnect = connect(
