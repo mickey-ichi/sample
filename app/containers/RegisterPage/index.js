@@ -4,6 +4,7 @@ import Steps, { Step } from 'rc-steps';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 import 'rc-steps/assets/index.css';
 import 'rc-steps/assets/iconfont.css';
 import injectReducer from 'utils/injectReducer';
@@ -45,13 +46,15 @@ class HomePage extends React.PureComponent {
   };
 
   submit = () => {
-    console.log(this.props.user);
-    this.props.registerUser(this.props.user);
+    new Promise((resolve, reject) => {
+      this.props.registerUser(this.props.user, resolve, reject);
+    }).then(() => {
+      this.props.history.push('/');
+    });
   };
 
   render() {
     const { step, user } = this.props;
-    console.log('test', user);
     return (
       <div className="ui container">
         <h2
@@ -106,7 +109,8 @@ function mapDispatchToProps(dispatch) {
   return {
     changeStep: step => dispatch(changeStep(step)),
     updateUser: user => dispatch(updateUser(user)),
-    registerUser: user => dispatch(registerUser(user)),
+    registerUser: (user, resolve, reject) =>
+      dispatch(registerUser(user, resolve, reject)),
   };
 }
 
@@ -127,4 +131,4 @@ export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(HomePage);
+)(withRouter(HomePage));

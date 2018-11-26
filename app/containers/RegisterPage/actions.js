@@ -6,10 +6,12 @@
 
 import { REGISTER_USER, CHANGE_STEP, UPDATE_USER } from './constants';
 
-export function registerUser(user) {
+export function registerUser(user, resolve = () => {}, reject = () => {}) {
   return {
     type: REGISTER_USER,
     user,
+    resolve,
+    reject,
   };
 }
 

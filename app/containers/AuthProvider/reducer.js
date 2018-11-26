@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { CHANGE_AUTHENTICATE } from './constants';
+import { CHANGE_AUTHENTICATE, LOGOUT } from './constants';
 
 export const initialState = fromJS({
   isAuthenticated: false,
@@ -18,6 +18,8 @@ function authProviderReducer(state = initialState, action) {
       return state
         .set('isAuthenticated', action.auth.isAuthenticated)
         .set('profile', action.auth.profile);
+    case LOGOUT:
+      return state.set('isAuthenticated', false).set('profile', {});
     default:
       return state;
   }

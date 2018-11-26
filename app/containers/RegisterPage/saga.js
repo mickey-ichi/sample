@@ -1,5 +1,6 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
+import { changeAuthenticate } from '../AuthProvider/actions';
 import {
   REGISTER_USER,
   REGISTER_USER_SUCCESS,
@@ -21,20 +22,27 @@ const api = {
  * Github repos request/response handler
  */
 export function* registerUser(prams) {
-  const { user } = prams;
+  const { user, resolve, reject } = prams;
   try {
-    console.log(user);
     const response = yield call(api.register, user);
-    console.log(response);
-    yield put({ type: REGISTER_USER_SUCCESS }, response);
+    yield put({ type: REGISTER_USER_SUCCESS, response });
+    localStorage.setItem('auth', JSON.stringify(user));
+    yield put(
+      changeAuthenticate({
+        isAuthenticated: true,
+        profile: user,
+      }),
+    );
+    resolve(response);
   } catch (error) {
-    yield put({ type: REGISTER_USER_ERROR }, error);
+    yield put({ type: REGISTER_USER_ERROR, error });
+    reject(error);
   }
 }
 
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* githubData() {
+export default function* registerPageSaga() {
   yield takeLatest(REGISTER_USER, registerUser);
 }
